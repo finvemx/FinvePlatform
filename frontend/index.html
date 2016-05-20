@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TodoApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+
+<div ng-include="'shared/navbar/navbar.html'"></div>
+
+<div class="container">
+    <div ng-view></div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+<script src="http://code.angularjs.org/1.4.7/angular-route.js"></script>
+
+<script src="components/todo/todo.js"></script>
+
+<script src="app.js"></script>
+
+
+</body>
+</html>
