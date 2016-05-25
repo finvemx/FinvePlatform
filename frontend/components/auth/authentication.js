@@ -1,5 +1,5 @@
-var app = angular.module("TodoApp.Auth", []),
-;
+var app = angular.module("Finve.Auth", []);
+
 
 app.service("TokenService", [function () {
     var userToken = "token";
@@ -24,7 +24,7 @@ app.service("UserService", ["$http", "$q", "$location", "TokenService", function
 
     this.login = function (user) {
         return $http.post("http://localhost:8080/auth/login", user).then(function (response) {
-            TokenService.setToken.(response.data.token);
+            TokenService.setToken(response.data.token);
             return response;
         })
     };
@@ -37,3 +37,27 @@ app.service("UserService", ["$http", "$q", "$location", "TokenService", function
     }
 
 }]);
+
+app.factory("AuthInterceptor", ["$q", "$location", "TokenService", function ($q, $location, TokenService) {
+    return {
+        request: function (config) {
+            var token = TokenService.getToken();
+            if (token) {
+                config.headers = config.headers || {};
+                config.headers.Authorization = "Bearer " + token
+            }
+            return config;
+        },
+        responseError: function (response) {
+            if (response.status === 401) {
+                TokenService.removeToken();
+                $location.path("/login");
+            }
+            return $q.reject(response);
+        }
+    }
+}]);
+
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('AuthInterceptor');
+});

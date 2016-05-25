@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var todoSchema = new Schema({  
+var investmentSchema = new Schema({  
     title: {
         type: String,
         required: true
@@ -16,4 +16,4 @@ var todoSchema = new Schema({
 //    }
 });
 
-module.exports = mongoose.model("Todo", todoSchema);
+module.exports = mongoose.model("Investment", investmentSchema);
