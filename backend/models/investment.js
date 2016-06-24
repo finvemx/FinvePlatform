@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var bcrypt = require('bcrypt');
 
-var investmentSchema = new Schema({  
+var Investment = new Schema({  
     title: {
         type: String,
         required: true
@@ -9,11 +10,19 @@ var investmentSchema = new Schema({
     completed: {
         type: Boolean,
         default: false
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }
-//    user: {
-//        type: Schema.Types.ObjectId,
-//        ref: "User"
+//    amount: {
+//        type: Number,
+//        require: true
+//    },
+//    image: {
+//    type; 
 //    }
+//    
 });
 
-module.exports = mongoose.model("Investment", investmentSchema);
+module.exports = mongoose.model("Investment", Investment);
